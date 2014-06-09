@@ -1,0 +1,53 @@
+<html>
+	<head>
+		
+		<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+			// call android activity for get current location
+			function getJSLocation() {
+				Android.getALocation();
+			}
+			
+			// after android activity got location will pass value form "latitude,longitude" to this function
+			function getAndroidLocation(msg) {
+				var locationLL = msg.split(",");
+				document.getElementById("location").innerHTML = locationLL[0]+","+locationLL[1];
+			}
+			
+			// call android activity for get current location
+			function getJSLocationFromPlayService() {
+				Android.getLocationFromPlayService();
+			}			
+	
+			// after android activity got location will pass value form "latitude,longitude" to this function
+			function getAndroidLocationFromPlayService(msg) {
+				var locationLL = msg.split(",");
+				document.getElementById("locationFromPlayService").innerHTML = locationLL[0]+","+locationLL[1];
+			}
+			
+			// getlocation from google map api
+			function getLocationFromGoogleMapApi() {
+				if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function (position) {
+						document.getElementById("locationFromGoogleMapApi").innerHTML=position.coords.latitude+", "+position.coords.longitude;
+					});
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<button onclick="getJSLocation()">get location</button>
+		</div>
+		<div id="location"></div>
+		<div>
+			<button onclick="getJSLocationFromPlayService()">get location from play service</button>
+			<div id="locationFromPlayService"></div>
+		</div>
+		<div>
+			<button onclick="getLocationFromGoogleMapApi()">get Location From Google Map Api</button>
+			<div id="locationFromGoogleMapApi"></div>
+		</div>
+	</body>
+</html>
